@@ -54,7 +54,9 @@ export default function Experience({ letter }: { letter: string }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [audioNotice, setAudioNotice] = useState("");
+  const [showMiniPlayer, setShowMiniPlayer] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const musicPlayerRef = useRef<HTMLDivElement>(null);
   const history = useRef<{ screen: Screen; scroll: number }[]>([]);
   const busy = useRef(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -74,6 +76,7 @@ export default function Experience({ letter }: { letter: string }) {
     const update = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
       setLetterProgress(total > 0 ? Math.min(100, window.scrollY / total * 100) : 100);
+      setShowMiniPlayer((musicPlayerRef.current?.getBoundingClientRect().bottom ?? 0) < 0);
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -91,7 +94,7 @@ export default function Experience({ letter }: { letter: string }) {
     } else {
       history.current.push({ screen, scroll: window.scrollY });
     }
-    if (screen === "letter" && next !== "letter") audioRef.current?.pause();
+    if (!(["letter", "question", "yes", "promise"] as Screen[]).includes(next)) audioRef.current?.pause();
     busy.current = true;
     setLeavingFor(next);
     pendingScroll.current = restoreScroll;
@@ -164,7 +167,7 @@ export default function Experience({ letter }: { letter: string }) {
       <article className="letter-inner">
         <h1 className="script write">I&apos;m Sorry</h1>
         <figure className="memory"><Image src="/photos/nadira-memory.jpeg" alt="Two people photographed together outdoors at night" width={810} height={1080} priority /></figure>
-        <div className="music-player" role="group" aria-label="Music player">
+        <div className="music-player" ref={musicPlayerRef} role="group" aria-label="Music player">
           <span className={`music-disc${playing ? " spinning" : ""}`} aria-hidden="true">♪</span>
           <div className="music-details"><div className="music-title"><strong>Photograph</strong><span>Ed Sheeran</span></div><input type="range" aria-label="Seek in Photograph" min="0" max={duration || 0} step="1" value={Math.min(currentTime, duration || 0)} disabled={!duration} onChange={event => { if (audioRef.current) audioRef.current.currentTime = Number(event.target.value); }} style={{ "--music-progress": `${duration ? currentTime / duration * 100 : 0}%` } as CSSProperties} /><div className="music-time"><span>{formatTime(currentTime)}</span><span>{formatTime(duration)}</span></div></div>
           <button className="music-toggle" type="button" aria-label={playing ? "Pause music" : "Play music"} onClick={() => playing ? audioRef.current?.pause() : playMusic()}>{playing ? "❚❚" : "▶"}</button>
@@ -199,6 +202,7 @@ export default function Experience({ letter }: { letter: string }) {
       <p>I&apos;ll learn from my mistakes and try to be a better friend.</p>
       {back()}
     </section>}
+    {(screen === "letter" && showMiniPlayer || screen === "question" || screen === "yes" || screen === "promise") && <button className="music-float" type="button" aria-label={playing ? "Pause Photograph" : "Play Photograph"} title={playing ? "Pause Photograph" : "Play Photograph"} onClick={() => playing ? audioRef.current?.pause() : playMusic()}><span aria-hidden="true">♫</span><span aria-hidden="true">{playing ? "❚❚" : "▶"}</span></button>}
     {curtain && <FlowerCurtain phase={curtain} />}
   </main>;
 }
