@@ -18,6 +18,10 @@ const flowerPositions = Array.from({ length: 36 }, (_, index) => {
   };
 });
 
+const FLOWER_COVER_MS = 950;
+const FLOWER_HOLD_MS = 2000;
+const FLOWER_REVEAL_MS = 750;
+
 function BloomArt({ mood = "calm" }: { mood?: "calm" | "happy" | "quiet" }) {
   const [touches, setTouches] = useState(0);
   return <button className={`bloom-art ${mood}${touches ? " bloomed" : ""}`} type="button" aria-label="Touch the blue magnolia to make it bloom" onClick={() => setTouches(value => value + 1)}>
@@ -105,8 +109,8 @@ export default function Experience({ letter }: { letter: string }) {
         setCurtain(null);
         setLeavingFor(null);
         busy.current = false;
-      }, 560));
-    }, 600));
+      }, FLOWER_REVEAL_MS));
+    }, FLOWER_COVER_MS + FLOWER_HOLD_MS));
   }
 
   function playMusic() {

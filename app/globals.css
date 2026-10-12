@@ -85,10 +85,10 @@ button:disabled{cursor:default}
 .whatsapp-link{text-decoration:none;min-width:220px}.whatsapp-note{margin-top:11px;color:#c8e0f3;font-family:Arial,sans-serif;font-size:11px}.continue-choice{margin-top:20px;background:transparent;color:#dceeff;box-shadow:none}
 .yes-scene .back,.promise-scene .back{margin-top:17px}
 .flower-curtain{position:fixed;z-index:100;inset:0;overflow:hidden;pointer-events:none;isolation:isolate}
-.curtain-wash{position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,#f1f9ff,#bfdcf4 60%,#7cadd8);animation:washIn .6s ease both}
-.curtain-flower{position:absolute;z-index:2;left:var(--x);top:var(--y);width:max(33vw,33vh);aspect-ratio:1;background:url('/art/transition-magnolia-blue.png') center/contain no-repeat;opacity:0;filter:drop-shadow(0 9px 13px #2d61954b);animation:curtainIn .54s cubic-bezier(.2,.65,.15,1) var(--delay) both;transform-origin:center}
-.curtain-heart{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);color:#376a99;font-size:50px;opacity:0;animation:heartIn .6s ease both}
-.flower-curtain.reveal .curtain-wash{animation:washOut .56s ease both}.flower-curtain.reveal .curtain-flower{opacity:1;animation:curtainOut .56s ease both}.flower-curtain.reveal .curtain-heart{animation:heartOut .4s ease both}
+.curtain-wash{position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,#f1f9ff,#bfdcf4 60%,#7cadd8);animation:washIn .95s ease both}
+.curtain-flower{position:absolute;z-index:2;left:var(--x);top:var(--y);width:max(33vw,33vh);aspect-ratio:1;background:url('/art/transition-magnolia-blue.png') center/contain no-repeat;opacity:0;filter:drop-shadow(0 9px 13px #2d61954b);animation:curtainIn .8s cubic-bezier(.2,.65,.15,1) var(--delay) both;transform-origin:center}
+.curtain-heart{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);color:#376a99;font-size:50px;opacity:0;animation:heartIn .95s ease both}
+.flower-curtain.reveal .curtain-wash{animation:washOut .75s ease both}.flower-curtain.reveal .curtain-flower{opacity:1;animation:curtainOut .75s ease both}.flower-curtain.reveal .curtain-heart{animation:heartOut .75s ease both}
 @keyframes sceneEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes inkReveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 @keyframes drift{from{transform:translate3d(0,40px,0) rotate(10deg);opacity:0}30%{opacity:.3}to{transform:translate3d(30px,-55px,0) rotate(90deg);opacity:0}}
